@@ -8,10 +8,10 @@ import meRoutes from "./api/me";
 import fs from "fs";
 
 const fastify = Fastify({
-    https: {
-        key: fs.readFileSync("./ssl/key.pem"),
-        cert: fs.readFileSync("./ssl/cert.pem"),
-    },
+    // https: {
+    //     key: fs.readFileSync("./ssl/key.pem"),
+    //     cert: fs.readFileSync("./ssl/cert.pem"),
+    // },
 });
     
 fastify.register(cors, {
