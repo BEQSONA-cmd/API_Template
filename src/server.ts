@@ -5,18 +5,15 @@ import cron from "node-cron";
 import registerRoutes from "./api/register";
 import loginRoutes from "./api/login";
 import meRoutes from "./api/me";
-import fs from "fs";
+import testRoutes from "./api/test";
 
-const fastify = Fastify({
-    // https: {
-    //     key: fs.readFileSync("./ssl/key.pem"),
-    //     cert: fs.readFileSync("./ssl/cert.pem"),
-    // },
-});
-    
+const fastify = Fastify();
+
+const HOST: string = process.env.HOST as string;
+
 fastify.register(cors, {
-    origin: "https://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: `${HOST}`,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
 });
@@ -25,6 +22,7 @@ fastify.register(cookie);
 fastify.register(registerRoutes);
 fastify.register(loginRoutes);
 fastify.register(meRoutes);
+fastify.register(testRoutes);
 
 cron.schedule("*/30 * * * * *", async () => {
     console.log("🔄 Checking something...");
