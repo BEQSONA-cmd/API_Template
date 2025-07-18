@@ -1,11 +1,8 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
-import cookie from "@fastify/cookie";
 import cron from "node-cron";
 import registerRoutes from "./api/register";
-import loginRoutes from "./api/login";
-import meRoutes from "./api/me";
-import testRoutes from "./api/test";
+import userRoutes from "./api/user";
 
 const fastify = Fastify();
 
@@ -18,11 +15,8 @@ fastify.register(cors, {
     credentials: true,
 });
 
-fastify.register(cookie);
 fastify.register(registerRoutes);
-fastify.register(loginRoutes);
-fastify.register(meRoutes);
-fastify.register(testRoutes);
+fastify.register(userRoutes);
 
 cron.schedule("*/30 * * * * *", async () => {
     console.log("🔄 Checking something...");
